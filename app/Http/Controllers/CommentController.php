@@ -14,7 +14,7 @@ class CommentController extends Controller
         ]);
 
         dd($validate);
-        // Comment::create($validate);
-        // redirect('articles/show');
+        Comment::create($validate);
+        redirect('articles/show');
     }
 }
