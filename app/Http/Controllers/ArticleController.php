@@ -14,28 +14,28 @@ class ArticleController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $article = new Article();
-        $article->user_id = Auth::id();
-        $article->title = $request->title;
-        $article->content = $request->content;
+    $article = new Article();
+    $article->user_id = Auth::id();
+    $article->title = $request->title;
+    $article->content = $request->content;
 
-        // Handle file upload for cover image
-        if ($request->hasFile('cover')) {
-            $filePath = $request->file('cover')->store('covers', 'public');
-            $article->cover = $filePath;
-        }
-
-        $article->save();
-
-        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
+    // Handle file upload for cover image
+    if ($request->hasFile('cover')) {
+        $filePath = $request->file('cover')->store('covers', 'public');
+        $article->cover = $filePath;
     }
+
+    $article->save();
+
+    return redirect()->route('articles.index')->with('success', 'Article created successfully.');
+}
 
     public function index()
     {

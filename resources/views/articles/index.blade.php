@@ -8,14 +8,16 @@
     @endif
     <a href="{{ route('articles.create') }}" class="btn btn-primary">Create New Article</a>
     <div class="list-group mt-3">
-        @foreach($articles as $article)
-            <div class="list-group-item">
-                <h5>{{ $article->title }}</h5>
-                <p>{{ Str::limit($article->content, 100) }}</p>
-                <small>By {{ $article->user->name }} on {{ $article->created_at->format('d M Y') }}</small>
-                <a href="#" class="btn btn-link">Read More</a>
-            </div>
-        @endforeach
+    @foreach($articles as $article)
+    <div class="article">
+        <h2>{{ $article->title }}</h2>
+        @if($article->cover)
+            <img src="{{ asset('storage/' . $article->cover) }}" alt="Cover Image" style="max-width: 100%; height: auto;">
+        @endif
+        <p>{{ $article->content }}</p>
+        <a href="#" class="btn btn-link">Read More</a>
+    </div>
+@endforeach
     </div>
 </div>
 @endsection
