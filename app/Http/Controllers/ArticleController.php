@@ -9,7 +9,7 @@ class ArticleController extends Controller
 {
     
 
-    public function update(Request $request){
+    public function updateArticle(Request $request){
         $validate = $request->validate([
             'title'=>'required | string',
             'content'=>'required | text',

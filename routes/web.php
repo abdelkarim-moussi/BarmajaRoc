@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::post('articles/{id}',[CommentController::class,'addComment']);
+Route::post('articles/{id}',[CommentController::class,'addComment'])
+->middleware(['auth','verified']);
+
+Route::post('articles/{id}',[ArticleController::class,'updateArticle'])
+->middleware(['auth','verified']);
 
 Route::get('/', function () {
     return view('welcome');
