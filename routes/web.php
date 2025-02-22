@@ -1,10 +1,16 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
+use Illuminate\Console\Events\ArtisanStarting;
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+});
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('articles/{id}',[CommentController::class,'addComment'])
+->middleware(['auth','verified']);
+
+Route::get('articles/update/{id}',[ArticleController::class,'showUpdate'])
 ->middleware(['auth','verified']);
 
 Route::post('articles/{id}',[ArticleController::class,'updateArticle'])
